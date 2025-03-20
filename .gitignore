@@ -1,0 +1,18 @@
+
+
+# --- Бэкенд (Go) ---
+backend/bin/
+backend/*.exe
+backend/*.log
+backend/*.out
+backend/*.test
+backend/.swp
+backend/.env
+backend/config.yaml
+
+# --- Общие исключения ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
