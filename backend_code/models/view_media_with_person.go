@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type MediaWithPerson struct {
 	ID           int       `json:"id"`
