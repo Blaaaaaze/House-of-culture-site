@@ -2,27 +2,25 @@ package main
 
 import (
 	"culturehouse/database" // Импорт пакета с подключением к бд
+	"culturehouse/routes"
 	"fmt"
 	"log"
 	"net/http"
 )
 
 func main() {
-	// Подключаемся к базе данных
-	db, err := database.ConnectDB()
+	err := database.ConnectDB()
 	if err != nil {
 		log.Fatal("Не удалось подключиться к базе данных:", err)
 	}
-	defer db.Close()
+	defer database.DB.Close()
 
-	// Проверка соединения
 	fmt.Println("Успешно подключено к базе данных!")
 
-	// Запуск HTTP-сервера
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello World!")
-	})
-
-	// Слушаем на порту 80
-	http.ListenAndServe(":80", nil)
+	routes.SetupRoutes()
+	log.Println("Сервер запущен на порту :8080")
+	err = http.ListenAndServe(":8080", nil)
+	if err != nil {
+		log.Fatal("Ошибка запуска сервера:", err)
+	}
 }
