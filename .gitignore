@@ -1,14 +1,14 @@
 
 
 # --- Бэкенд (Go) ---
-backend/bin/
-backend/*.exe
-backend/*.log
-backend/*.out
-backend/*.test
-backend/.swp
-backend/.env
-backend/config.yaml
+backend_code/bin/
+backend_code/*.exe
+backend_code/*.log
+backend_code/*.out
+backend_code/*.test
+backend_code/.swp
+backend_code/.env
+backend_code/config.yaml
 
 # --- Общие исключения ---
 .DS_Store
