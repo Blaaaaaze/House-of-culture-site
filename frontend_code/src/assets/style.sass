@@ -1,0 +1,411 @@
+@import "resets.scss"
+@import "normalizez.scss"
+
+html
+    scroll-behavior: smooth
+    font-family: "Golos"
+    font-weight: regular
+
+$color-green: #1C5242
+$color-white: #ffffff
+$color-gray: #666666
+$color-blue: #00B1D0
+
+/*Настройка шрифтов*/
+@font-face 
+    font-family: "Golos"
+    src: url(../assets/font/GolosText-Regular.ttf)
+    font-weight: regular
+    font-style: normal
+
+@font-face 
+    font-family: "Golos"
+    src: url(../assets/font/GolosText-Semibold.ttf)
+    font-weight: bold
+    font-style: normal
+
+    
+@font-face 
+    font-family: "Lato"
+    src: url(../assets/font/Lato-Regular.ttf)
+    font-weight: normal
+    font-style: normal
+
+
+/*Контейнер для ограничения по ширине */
+.container
+    position: relative
+    max-width: 1140px
+    margin: 0 auto
+
+/*бургер навигации*/
+.hamburger
+    width: 50px
+    margin-right: 64px
+    span
+        height: 6px
+        border-radius: 5px
+        width: 100%
+        display: block
+        background: $color-gray
+        margin-bottom: 4px
+        &:last-child
+            margin-bottom: 0px
+
+/*главная секция с лого,навигацией и новостями, для расположения*/
+.main-section
+    position: relative
+    max-height: 990px
+    background: $color-white
+    overflow: hidden
+    &__header
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        width: 100%
+    &__log-container
+        display: flex
+        background: $color-green
+        flex-direction: row
+        justify-content: space-between
+        height: 110px
+        align-items: center
+    &__nav-container
+        display: flex
+        flex-direction: row
+        justify-content: center
+        height: 80px
+        align-items: center
+    &__content-container
+        margin: 0 auto
+        padding: 40px 20px
+        height: 780px
+        
+    &__logo
+        height: 67px
+        background: $color-white
+    &__eye
+        height: 50px
+
+    &__title
+        margin-bottom: 20px
+        margin-left: 65px
+        font-size: 32px
+        color: $color-green
+    &__flex-row
+        display: flex
+        justify-content: space-between
+        gap: 130px
+        height: 682px
+        align-items: baseline
+/*меню навигации */
+.nav-menu
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: center
+    &__list
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+    &__list-item
+        margin-right: 64px
+        font-size: 16px
+        &:last-child
+            margin-right: 0px
+        a
+            text-decoration: none
+            color: $color-gray
+        /*цветной графиент для "главная"*/
+        &.active
+            display: flex
+            background: linear-gradient(to bottom, $color-green 13%,#5D8177 59%, $color-white 100%)
+            width: 113px
+            height: 80px
+            align-items: center
+            justify-content: center
+            a
+                color: black
+                font-weight: bold
+
+/*параметры для всех титульников*/
+.title
+    font-size: 36px 
+    text-align: left
+    font-weight: bold      
+
+/*левая область с новостями актуальными */
+.left-wrapper
+    width: 748px
+    display: flex
+    flex-direction: row
+    gap: 32px
+    
+.news-card
+    background-color: white
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+    height: auto
+    &__card
+        padding: 15px
+    &__title
+        font-size: 20px
+        background-color: $color-green
+        color: white
+        padding: 12px
+        margin-bottom: 12px
+    &__image
+        width: 100%
+        height: auto
+        margin-bottom: 12px
+    &__text
+        font-size: 16px
+        margin-bottom: 12px
+        word-wrap: break-word
+        overflow-wrap: break-word
+        line-height: 24px
+        margin-bottom: 40px
+    &__link
+        color: $color-blue
+        font-weight: bold
+        text-decoration: none
+    
+
+.right-wrapper
+    width: 392px
+    display: flex
+    flex-direction: column
+    gap: 20px
+
+.recent-box
+    background: white
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+    padding: 16px 20px
+
+.recent-title
+    background-color: $color-blue
+    color: white
+    padding: 12px
+    font-size: 18px
+    margin: -16px -20px 16px -20px
+  
+
+.recent-list
+    list-style: disc
+    padding-left: 20px
+    margin: 0
+    a
+        color: inherit
+        text-decoration: none
+        display: inline-block
+    a:hover
+        color: inherit
+        text-decoration: none
+
+
+.news-button
+    background-color: $color-blue
+    color: white
+    text-align: center
+    padding: 12px
+    text-decoration: none
+    border-radius: 6px
+    font-weight: bold
+    display: inline-block
+
+
+.news-slider
+    &__image
+        flex-shrink: 0
+        width: 328px
+        height: 180px
+        object-fit: cover
+        display: none
+        &.active
+            display: block  
+
+
+
+
+
+
+
+
+
+    
+
+.event-section
+    position: relative
+    background: $color-green
+    overflow: hidden  
+    &__container
+        max-height: 650px
+        display: flex
+        flex-direction: column
+        background: $color-white
+        gap: 32px
+        padding-bottom: 20px
+
+.event-button
+    display: flex
+    width: 287px
+    background-color: $color-green
+    color: white
+    text-align: center
+    margin: 0 auto
+    padding: 12px
+    text-decoration: none
+    border-radius: 25px
+    font-weight: bold
+    font-size: 24px
+    
+
+.events-grid
+    display: flex
+    flex-wrap: wrap
+    gap: 20px
+    justify-content: center
+    margin-bottom: 70px
+
+.event-card
+    position: relative
+    width: 268px
+    height: 357px
+    overflow: hidden
+    border-radius: 6px
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15)
+    display: block
+    text-decoration: none
+    color: inherit
+    &__image
+        width: 100%
+        height: 100%
+        object-fit: cover
+        display: block
+
+    &__overlay
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+        background-color: rgba(0, 0, 0, 0.6)
+        color: white
+        padding: 12px
+        font-size: 16px
+        font-weight: bold
+        text-align: center
+
+
+
+
+
+
+
+
+
+
+
+
+.gos-section
+    position: relative
+    max-height: 343px
+    background: $color-white
+    overflow: hidden
+    &__container
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        gap: 40px
+
+.gos-left
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: flex-start
+    width: 397px
+    font-family: "Lato", sans-serif
+
+.gos-text
+    font-size: 20px
+    line-height: 1.5
+    margin-bottom: 12px
+    &__sub
+        font-size: 18px
+        font-weight: bold
+        margin-bottom: 16px
+
+.gos-button
+    display: inline-block
+    padding: 12px 24px
+    border: 2px solid #0056d6
+    color: #0056d6
+    text-decoration: none
+    font-weight: bold
+    border-radius: 4px
+    font-size: 16px
+    transition: background-color 0.3s, color 0.3s
+    &:hover
+        background-color: #0056d6
+        color: white
+
+.gos-right
+    display: flex
+    width: 743px
+    text-align: right
+.gos-right img
+  max-width: 100%
+  height: auto
+  display: block
+  object-fit: contain
+
+
+
+
+
+
+
+
+
+.footer-section
+    position: relative
+    max-height: 300px
+    background: $color-green
+    overflow: hidden
+    &__container
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: flex-start
+        gap: 40px
+        padding-top: 10px
+        padding-bottom: 10px
+    &__column
+        flex: 1 1 200px
+        padding-top: 20px
+        h4 
+            color: white
+            font-weight: bold
+            font-size: 20px
+            margin-bottom: 12px
+            align-items: center
+        ul
+            list-style: none
+            padding: 0
+        li
+            margin-bottom: 8px
+    &__logo-column
+        flex: 2 1 300px
+    &__logo
+        max-width: 233px
+        background: $color-white
+        margin-bottom: 12px
+    a, p
+        font-size: 14px
+        color: white
+        text-decoration: none
+    p
+        line-height: 20px
+    a:hover
+        text-decoration: underline
