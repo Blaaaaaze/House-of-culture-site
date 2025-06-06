@@ -17,7 +17,7 @@ type ContentItem struct {
 	FullDescription  string      `json:"full_description"`
 	Type             ContentType `json:"type"`
 	IsActive         bool        `json:"is_active"`
-	PreviewImage     string      `json:"preview_image,omitempty"`
+	PreviewImage     *string     `json:"preview_image,omitempty"`
 }
 
 func GetContentItemByID(db *sql.DB, id int) (*ContentItem, error) {
