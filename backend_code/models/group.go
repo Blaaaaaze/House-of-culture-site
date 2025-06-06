@@ -10,7 +10,7 @@ type Group struct {
 	ShortDescription string `json:"short_description"`
 	FullDescription  string `json:"full_description"`
 	IsActive         bool   `json:"is_active"`
-	PreviewImage     string `json:"preview_image,omitempty"`
+	PreviewImage     *string `json:"preview_image,omitempty"`
 }
 
 func GetActiveGroups(db *sql.DB) ([]Group, error) {

@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"fmt"
 	"time"
 )
 
@@ -15,8 +16,8 @@ const (
 
 type Media struct {
 	ID           int       `json:"id"`
-	RelatedTable string    `json:"related_table"`
-	RelatedID    int       `json:"related_id"`
+	RelatedTable *string   `json:"related_table"`
+	RelatedID    *int      `json:"related_id"`
 	Type         MediaType `json:"type"`
 	FilePath     string    `json:"file_path"`
 	Description  string    `json:"description"`
@@ -138,4 +139,47 @@ func GetMediaByContentID(db *sql.DB, contentID int) ([]MediaWithContentItem, err
 		media = append(media, m)
 	}
 	return media, nil
+}
+
+func GetPDFMediaByFolder(db *sql.DB, folder string, deep bool) ([]Media, error) {
+	var query string
+	var args []interface{}
+
+	if deep {
+		// Файлы с подпапками
+		query = `
+			SELECT id, related_table, related_id, type, file_path, description, uploaded_at
+			FROM media
+			WHERE type = $1 AND file_path LIKE $2
+			ORDER BY uploaded_at DESC
+		`
+		args = []interface{}{MediaPDF, folder + "%"}
+	} else {
+		// Только файлы внутри папки, без подпапок
+		query = `
+			SELECT id, related_table, related_id, type, file_path, description, uploaded_at
+			FROM media
+			WHERE type = $1 AND file_path ~ $2
+			ORDER BY uploaded_at DESC
+		`
+		regex := fmt.Sprintf("^%s[^/]+\\.pdf$", folder)
+		args = []interface{}{MediaPDF, regex}
+	}
+
+	rows, err := db.Query(query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var result []Media
+	for rows.Next() {
+		var m Media
+		err := rows.Scan(&m.ID, &m.RelatedTable, &m.RelatedID, &m.Type, &m.FilePath, &m.Description, &m.UploadedAt)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, m)
+	}
+	return result, nil
 }

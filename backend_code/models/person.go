@@ -25,6 +25,7 @@ type Person struct {
 	IsActive    bool     `json:"is_active"`
 	VacancyID   *int     `json:"vacancy_id,omitempty"`
 	Photo       *string  `json:"photo,omitempty"`
+	Vacancy     *string  `json:"vacancy,omitempty"`
 }
 
 func GetTeacherByGroupIDWithPhoto(db *sql.DB, groupID int) (*Person, error) {
@@ -71,13 +72,15 @@ func GetAllContactPersons(db *sql.DB) ([]Person, error) {
 			p.lastname,
 			p.id_group,
 			p.phone_number,
-			p.role,
+			p.role::text,
 			p.is_active,
 			p.vacancy_id,
-			m.file_path
+			m.file_path,
+			v.name AS vacancy_name
 		FROM view_employee p
 		LEFT JOIN media_with_person m ON m.related_id = p.id
 		LEFT JOIN vacancy v ON p.vacancy_id = v.id
+		WHERE v.id <= 7
 		ORDER BY p.id, m.uploaded_at ASC
 	`
 
@@ -101,6 +104,7 @@ func GetAllContactPersons(db *sql.DB) ([]Person, error) {
 			&p.IsActive,
 			&p.VacancyID,
 			&p.Photo,
+			&p.Vacancy,
 		)
 		if err != nil {
 			return nil, err
