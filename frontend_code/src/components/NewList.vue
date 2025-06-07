@@ -2,7 +2,7 @@
   <div class="main-section__flex-row">
     <div class="left-wrapper">
       <NewsCard
-        v-for="news in news"
+        v-for="news in news.slice(0,2)"
         :key="news.id"
         :news="news"
       />
