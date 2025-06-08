@@ -1,30 +1,29 @@
 <template>
-  <section class="main-section">
-    <Header />
-    <div class="container main-section__container">
-      <h1 class="main-section__title title">Новости</h1>
-      <NewList />
-    </div>
-  </section>
+  <div class="page">
+    <div class="page__content">
+      <section class="main-section">
+        <Header />
+        <div class="container main-section__container">
+          <h1 class="main-section__title title">Новости</h1>
+          <NewList />
+        </div>
+      </section>
 
-  <section class="event-section">
-    <div class="container event-section__container">
-      <h1 class="main-section__title title"> Мероприятия</h1>
-      <EventList />
-    </div>
-  </section>
+      <section class="event-section">
+        <div class="container event-section__container">
+          <h1 class="main-section__title title"> Мероприятия</h1>
+          <EventList />
+        </div>
+      </section>
 
-  <section class="gos-section">
-    <div class="container gos-section__container">
-      <Gos />
+      <section class="gos-section">
+        <div class="container gos-section__container">
+          <Gos />
+        </div>
+      </section>
     </div>
-  </section>
-
-  <section class="footer-section">
-    <div class="container footer-section__container">
-      <Footer />
-    </div>
-  </section>
+    <Footer />
+  </div>
 </template>
 
 <script setup>

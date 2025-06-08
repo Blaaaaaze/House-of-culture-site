@@ -178,8 +178,8 @@ ALTER SEQUENCE public.group_id_seq OWNED BY public."group".id;
 
 CREATE TABLE public.media (
     id integer NOT NULL,
-    related_table character varying(50) NOT NULL,
-    related_id integer NOT NULL,
+    related_table character varying(50),
+    related_id integer,
     type public.media_type NOT NULL,
     file_path text NOT NULL,
     description text NOT NULL,
@@ -452,6 +452,9 @@ COPY public.content_item (id, name, short_description, full_description, type, i
 1	песни-пляски	фестиваль народных танцев и частушек	Длинное описание, как это круто и где это проходит	festival	t
 2	Победа!	наш коллектив выиграл в конкурсе!	29 мая состоялось великое событие, мы не знаем, что было, но они выиграли	news	t
 3	крутое название	классное превью	Невероятно подробное описание крутого события	event	t
+4	фестиваль крутых мальчиков	Выбираем самого сигма бойчика из всех	Приглашаем мальчиков до 10 лет посоревноваться друг с другом и вообще крутыми побыть	festival	t
+5	День города!	Наш любимый город N	В это воскресенье на главной площади все жители поздравляли свой любимый город с  120 днём рождения	news	t
+6	Новый кружок	В нашем ДК открылся новый танцевальный клуб	Новый танцевальный клуб позволит детям попробовать себя в новых стилях танцев, таких как брейк, что-нибудь и что-то	news	t
 \.
 
 
@@ -463,6 +466,7 @@ COPY public."group" (id, name, short_description, full_description, is_active) F
 1	Урашечки	танцевальный коллектив для дошкольников	У нас большая история, но пока просто тест	t
 2	актерчики	актерский для самых маленьких	Мы недавно открылись тутуту	t
 3	распевон	давно-давно поем	история долгая, пока в инактиве	f
+4	Смешарики	кружок художественной гимнастики	делаем сальто, колесо и другие трюки, названия которых я не знаю	t
 \.
 
 
@@ -477,6 +481,10 @@ COPY public.media (id, related_table, related_id, type, file_path, description, 
 5	content_item	3	image	uploads/events/leg.jpg	превью мероприятие	2025-06-02 18:59:23.461007
 1	group	1	image	uploads/groups/lenya.jpg	test	2025-06-02 11:01:12.145869
 6	group	2	image	uploads/groups/gr2.jpg	logo gr2	2025-06-03 21:02:02.320524
+7	\N	\N	pdf	uploads/docs/info/test.pdf	нормативный документ 1	2025-06-05 17:29:13.28565
+8	content_item	1	pdf	uploads/docs/rules/fest1/rules_fest1_2025.pdf	Правила фестиваля 1	2025-06-05 18:04:42.012797
+9	content_item	1	pdf	uploads/docs/rules/fest1/rules_fest1_2024.pdf	Правила фестиваля 1 2024	2025-06-05 18:04:42.012797
+10	content_item	4	pdf	uploads/docs/rules/fest2/rules_fest2_2025.pdf	Правила фестиваля 2 2025	2025-06-05 18:04:42.012797
 \.
 
 
@@ -485,7 +493,8 @@ COPY public.media (id, related_table, related_id, type, file_path, description, 
 --
 
 COPY public.person (id, name, lastname, id_group, phone_number, role, is_active, vacancy_id, surname) FROM stdin;
-1	Мария	Михайловна	1	+79999999999	teacher	t	\N	Гутова
+1	Марина	Михайловна	1	89998887766	teacher	t	9	Гутова
+2	Пётр	Иванович	\N	89345677733	employee	t	1	Куйбышев
 \.
 
 
@@ -494,9 +503,24 @@ COPY public.person (id, name, lastname, id_group, phone_number, role, is_active,
 --
 
 COPY public.vacancy (id, name, long_description, is_active) FROM stdin;
-1	Директор	Директор концертного зала, делаешь то, делаешь то	f
-2	Системный администратор	Переустановить винду, пересобрать компьютер	t
-3	Дирижёр	ну сам себе работу придумай	f
+1	Директор	Руководство домом культуры. Организация и контроль деятельности.	f
+2	Заместитель директора	Координация мероприятий и внутренних процессов.	f
+3	Администратор	Контактное лицо по общим вопросам, расписанию и аренде залов.	f
+4	Методист	Составление и методическое сопровождение программ.	t
+5	Художественный руководитель	Ответственный за творческую программу и качество мероприятий.	f
+6	Ответственный за приём заявлений	Обработка заявок, заявлений и обратной связи от посетителей.	f
+7	Бухгалтер	Ведение финансовой отчётности и справок по оплате.	f
+8	Преподаватель театрального кружка	Ведение занятий по актёрскому мастерству.	f
+9	Преподаватель хореографии	Обучение танцам различных направлений.	f
+10	Преподаватель вокала	Занятия по сольному и хоровому пению.	f
+11	Преподаватель ИЗО	Обучение детей и взрослых рисованию и живописи.	t
+12	Преподаватель прикладного творчества	Занятия по декоративно-прикладному искусству.	t
+13	Преподаватель музыки	Индивидуальные и групповые уроки игры на инструментах.	f
+14	Звукооператор	Настройка и сопровождение звука во время мероприятий.	t
+15	Светооператор	Работа с осветительным оборудованием.	t
+16	Костюмер	Ответственный за сценические костюмы и их подготовку.	f
+17	Комендант здания	Контроль состояния помещений и обеспечение порядка.	f
+18	Технический специалист	Поддержка оборудования, компьютеров, сайта.	f
 \.
 
 
@@ -511,35 +535,35 @@ SELECT pg_catalog.setval('public.child_parent_id_seq', 1, false);
 -- Name: content_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.content_item_id_seq', 3, true);
+SELECT pg_catalog.setval('public.content_item_id_seq', 6, true);
 
 
 --
 -- Name: group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.group_id_seq', 3, true);
+SELECT pg_catalog.setval('public.group_id_seq', 4, true);
 
 
 --
 -- Name: media_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.media_id_seq', 6, true);
+SELECT pg_catalog.setval('public.media_id_seq', 10, true);
 
 
 --
 -- Name: person_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.person_id_seq', 1, true);
+SELECT pg_catalog.setval('public.person_id_seq', 2, true);
 
 
 --
 -- Name: vacancy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.vacancy_id_seq', 3, true);
+SELECT pg_catalog.setval('public.vacancy_id_seq', 18, true);
 
 
 --
