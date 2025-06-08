@@ -24,30 +24,6 @@ type Media struct {
 	UploadedAt   time.Time `json:"uploaded_at"`
 }
 
-func GetAllMedia(db *sql.DB) ([]Media, error) {
-	query := `
-		SELECT *
-		FROM media
-	`
-
-	rows, err := db.Query(query)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	var media []Media
-	for rows.Next() {
-		var m Media
-		if err := rows.Scan(&m.ID, &m.RelatedTable, &m.RelatedID, &m.Type, &m.FilePath, &m.Description, &m.UploadedAt); err != nil {
-			return nil, err
-		}
-		media = append(media, m)
-	}
-
-	return media, nil
-}
-
 func GetMediaByGroupID(db *sql.DB, groupID int) ([]MediaWithGroup, error) {
 	query := `
 		SELECT id, related_table, related_id, type, file_path, description,
@@ -82,33 +58,6 @@ func GetMediaByGroupID(db *sql.DB, groupID int) ([]MediaWithGroup, error) {
 	}
 
 	return mediaList, nil
-}
-
-func GetMediaForContentItem(db *sql.DB, contentID int) ([]MediaWithContentItem, error) {
-	query := `
-		SELECT id, related_table, related_id, type, file_path, description, uploaded_at, content_name, short_description, content_type
-		FROM media_with_content_item
-		WHERE related_id = $1
-	`
-	rows, err := db.Query(query, contentID)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-
-	var media []MediaWithContentItem
-	for rows.Next() {
-		var m MediaWithContentItem
-		err := rows.Scan(
-			&m.ID, &m.RelatedTable, &m.RelatedID, &m.Type, &m.FilePath, &m.Description,
-			&m.UploadedAt, &m.ContentName, &m.ShortDescription, &m.ContentType,
-		)
-		if err != nil {
-			return nil, err
-		}
-		media = append(media, m)
-	}
-	return media, nil
 }
 
 func GetMediaByContentID(db *sql.DB, contentID int) ([]MediaWithContentItem, error) {
@@ -182,4 +131,12 @@ func GetPDFMediaByFolder(db *sql.DB, folder string, deep bool) ([]Media, error) 
 		result = append(result, m)
 	}
 	return result, nil
+}
+
+func InsertMedia(db *sql.DB, relatedTable string, relatedID int, mediaType string, filePath string, description string) error {
+	query := `
+		INSERT INTO media (related_table, related_id, type, file_path, description)
+		VALUES ($1, $2, $3, $4, $5)`
+	_, err := db.Exec(query, relatedTable, relatedID, mediaType, filePath, description)
+	return err
 }
