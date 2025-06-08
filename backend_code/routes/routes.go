@@ -19,6 +19,8 @@ func SetupRoutes() {
 	http.HandleFunc("/api/vacancies", middleware.WithCORS(handlers.GetActiveVacanciesHandler))
 	http.HandleFunc("/api/contacts", middleware.WithCORS(handlers.GetContactPersonsHandler))
 	http.HandleFunc("/api/media/pdf", middleware.WithCORS(handlers.GetPDFMediaHandler))
+	http.HandleFunc("/api/applicants", middleware.WithCORS(handlers.CreateApplicantHandler))
+	http.HandleFunc("/api/register-child", middleware.WithCORS(handlers.RegisterChildHandler))
 
 	http.HandleFunc("/", middleware.WithCORS(handlers.HomeHandler))
 }

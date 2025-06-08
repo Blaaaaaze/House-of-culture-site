@@ -20,18 +20,18 @@ type ContentItem struct {
 	PreviewImage     *string     `json:"preview_image,omitempty"`
 }
 
-func GetContentItemByID(db *sql.DB, id int) (*ContentItem, error) {
-	query := `SELECT id, name, short_description, full_description, type, is_active FROM content_item WHERE id = $1`
-	var c ContentItem
-	err := db.QueryRow(query, id).Scan(&c.ID, &c.Name, &c.ShortDescription, &c.FullDescription, &c.Type, &c.IsActive)
-	if err == sql.ErrNoRows {
-		return nil, nil
-	}
-	if err != nil {
-		return nil, err
-	}
-	return &c, nil
-}
+// func GetContentItemByID(db *sql.DB, id int) (*ContentItem, error) {
+// 	query := `SELECT id, name, short_description, full_description, type, is_active FROM content_item WHERE id = $1`
+// 	var c ContentItem
+// 	err := db.QueryRow(query, id).Scan(&c.ID, &c.Name, &c.ShortDescription, &c.FullDescription, &c.Type, &c.IsActive)
+// 	if err == sql.ErrNoRows {
+// 		return nil, nil
+// 	}
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	return &c, nil
+// }
 
 func GetActiveNews(db *sql.DB) ([]ContentItem, error) {
 	return getAllActiveContentByType(db, "news")
