@@ -86,10 +86,10 @@ $color-blue: #00B1D0
         justify-content: center
         height: 80px
         align-items: center
-    &__content-container
+    &__container
         margin: 0 auto
-        padding: 40px 20px
-        height: 780px
+        padding: 10px 0px 
+        height: 530px
         
     &__logo
         height: 67px
@@ -106,7 +106,8 @@ $color-blue: #00B1D0
         display: flex
         justify-content: space-between
         gap: 130px
-        height: 682px
+
+        margin: 20px 0px 50px 0px
         align-items: baseline
 /*меню навигации */
 .nav-menu
@@ -121,7 +122,8 @@ $color-blue: #00B1D0
         justify-content: center
     &__list-item
         margin-right: 64px
-        font-size: 16px
+        font-size: 18px
+        color: $color-gray
         &:last-child
             margin-right: 0px
         a
@@ -134,6 +136,8 @@ $color-blue: #00B1D0
             width: 113px
             height: 80px
             align-items: center
+            color: black
+            font-weight: bold
             justify-content: center
             a
                 color: black
@@ -186,6 +190,15 @@ $color-blue: #00B1D0
             color: white
             text-align: center
             padding: 12px 30px
+            text-decoration: none
+            border-radius: 6px
+            font-weight: bold
+            display: inline-block
+        &_vac
+            background-color: $color-blue
+            color: white
+            text-align: center
+            padding: 8px 10px
             text-decoration: none
             border-radius: 6px
             font-weight: bold
@@ -524,3 +537,34 @@ $color-blue: #00B1D0
 
         a:last-child
             grid-column: 3   
+
+
+
+
+
+
+
+.vacancy-card
+    border: 1px solid #ddd
+    padding: 1rem
+    border-radius: 8px
+    margin-bottom: 1rem
+    background: #fff
+    &__title
+        font-size: 18px
+        font-weight: bold
+    &__description
+        font-size: 16px
+        margin: 0.5rem 0
+        padding-bottom: 5px
+
+.vacancy-list
+    max-width: 960px
+    margin: 0 auto
+    padding: 10px
+    &__title
+        font-size: 2rem
+        margin-bottom: 1.5rem
+        color: $color-green
+        font-weight: bold
+

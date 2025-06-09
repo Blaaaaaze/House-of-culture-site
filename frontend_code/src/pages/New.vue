@@ -2,7 +2,7 @@
   <div class="page">
     <Header />
     <div class="page__content">
-      <NewsSingle />
+      <ContentSingle type="news" plural-label="новостей" />
     </div>
     <Footer />
   </div>
@@ -11,7 +11,7 @@
 <script setup>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
-import NewsSingle from '@/components/NewsSingle.vue'
+import ContentSingle from '@/components/ContentSingle.vue'
 </script>
 
 <style scoped lang="sass">

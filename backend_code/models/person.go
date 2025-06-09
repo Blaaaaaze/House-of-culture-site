@@ -20,7 +20,7 @@ type Person struct {
 	Surname     string   `json:"surname"`
 	Lastname    *string  `json:"lastname,omitempty"`
 	GroupID     *int     `json:"group_id,omitempty"`
-	PhoneNumber string   `json:"phone_number"`
+	PhoneNumber *string  `json:"phone_number"`
 	Role        RoleType `json:"role"`
 	IsActive    bool     `json:"is_active"`
 	VacancyID   *int     `json:"vacancy_id,omitempty"`
@@ -112,4 +112,14 @@ func GetAllContactPersons(db *sql.DB) ([]Person, error) {
 		people = append(people, p)
 	}
 	return people, nil
+}
+
+func InsertPerson(db *sql.DB, name, surname, lastname, phone string, vacancyID int) (int, error) {
+	query := `
+		INSERT INTO person (name, surname, lastname, phone_number, role, is_active, vacancy_id)
+		VALUES ($1, $2, $3, $4, 'applicant', false, $5)
+		RETURNING id`
+	var id int
+	err := db.QueryRow(query, name, surname, lastname, phone, vacancyID).Scan(&id)
+	return id, err
 }
