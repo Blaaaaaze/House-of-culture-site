@@ -9,7 +9,7 @@
       />
     </div>
 
-    <router-link class="event-button" to="/events">Больше мероприятий →</router-link>
+    <router-link class="event-button" to="/event">Больше мероприятий →</router-link>
   </section>
 </template>
 

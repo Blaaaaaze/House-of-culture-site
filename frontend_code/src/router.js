@@ -13,6 +13,7 @@ import faq from './pages/faq.vue'
 import UsefulLinks from '@/pages/UsefulLinks.vue'
 import Vacancy from '@/pages/Vacancy.vue'
 import VacancyApply from '@/pages/VacancyApply.vue'
+import About from '@/pages/About.vue'
 
 const routes = [
   { path: '/', component: Home },
@@ -43,9 +44,10 @@ const routes = [
   },
 
   { path: '/faq', component: faq},
-  { path: '/links', component: UsefulLinks },
+  { path: '/links', component: UsefulLinks},
   {path: '/vacancy', component: Vacancy},
   {path: '/vacancy/:id/apply',component: VacancyApply},
+  {path: '/about', component: About}
 ]
 
 
@@ -56,6 +58,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      
+      return { top: 0 }
+    }
+  }
 })
 
 export default router
