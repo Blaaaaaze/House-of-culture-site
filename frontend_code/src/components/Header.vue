@@ -21,12 +21,16 @@
     <div class="main-header__bottom">
       <div class="container main-section__nav-container">
         <nav class="main-section__nav nav-menu">
-          <div class="hamburger">
+          <div class="hamburger" @click="toggleExtraMenu">
             <span></span>
             <span></span>
             <span></span>
           </div>
-          <ul class="nav-menu__list">
+          
+          <ul
+            class="nav-menu__list"
+            :class="{ 'nav-menu__list--open': isMenuOpen }"
+          >
             <!-- Главная -->
             <router-link to="/" custom v-slot="{ navigate, href, isActive }">
               <li
@@ -76,6 +80,24 @@
               </li>
             </router-link>
           </ul>
+          <div class="extra-menu" v-show="isExtraMenuOpen">
+            <div class="footer-section__column">
+              <h4>О нас</h4>
+              <ul>
+                <li><router-link to="/about">Основная информация</router-link></li>
+                <li><router-link to="/vacancy">Вакансии</router-link></li>
+                <li><router-link to="/faq">Часто задаваемые вопросы</router-link></li>
+              </ul>
+            </div>
+
+            <div class="footer-section__column">
+              <h4>Другое</h4>
+              <ul>
+                <li><a href="https://forms.yandex.ru/" target="_blank">Предложения по улучшению ГДК</a></li>
+                <li><router-link to="/links">Полезные ссылки</router-link></li>
+              </ul>
+            </div>
+          </div>
         </nav>
       </div>
     </div>
@@ -83,8 +105,17 @@
 </template>
 
 <script setup>
-// логика не нужна
+import { ref } from 'vue'
+
+const isExtraMenuOpen = ref(false)
+
+function toggleExtraMenu() {
+  isExtraMenuOpen.value = !isExtraMenuOpen.value
+}
 </script>
+
+
+
 
 <style lang="sass" scoped>
 @import '@/assets/style.sass'

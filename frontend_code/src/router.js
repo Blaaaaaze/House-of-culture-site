@@ -57,7 +57,13 @@ const routes = [
   { path: '/links', component: UsefulLinks},
   {path: '/vacancy', component: Vacancy},
   {path: '/vacancy/:id/apply',component: VacancyApply},
-  {path: '/about', component: About}
+  {path: '/about', component: About},
+  {
+  path: '/group/:id',
+  name: 'GroupSingle',
+  component: () => import('@/components/GroupSingle.vue')
+},
+
 ]
 
 

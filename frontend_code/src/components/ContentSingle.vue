@@ -14,7 +14,7 @@
           <!-- Только для festival -->
           <div v-if="props.type === 'festival'" class="festival-pdf">
             <a
-              :href="`/api/media/pdf?content_id=${item.id}`"
+              :href="`/api/media/pdf?folder=uploads/docs/rules/&deep=true`" 
               target="_blank"
               rel="noopener noreferrer"
             >

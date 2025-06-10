@@ -13,7 +13,7 @@
 <script setup>
 import PersonCard from '@/components/PersonCard.vue'
 import { ref, onMounted } from 'vue'
-import EventCard from './EventCard.vue'
+
 
 const persons = ref([])
 

@@ -15,9 +15,13 @@ import { useRoute } from 'vue-router'
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import PersonList from '@/components/PersonList.vue'
-
-
 </script>
 
-<style scoped>
+<style scoped lang="sass">
+.page
+  &__title
+    font-size: 2rem
+    margin-bottom: 10px
+    color: #1C5242
+    font-weight: bold
 </style>

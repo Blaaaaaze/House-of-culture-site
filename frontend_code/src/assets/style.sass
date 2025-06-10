@@ -56,17 +56,19 @@ $color-blue: #00B1D0
 
 /*бургер навигации*/
 .hamburger
-    width: 50px
-    margin-right: 64px
-    span
-        height: 6px
-        border-radius: 5px
-        width: 100%
-        display: block
-        background: $color-gray
-        margin-bottom: 4px
-        &:last-child
-            margin-bottom: 0px
+  width: 40px
+  margin-right: 24px
+  cursor: pointer
+  display: block
+  span
+    height: 5px
+    border-radius: 4px
+    width: 100%
+    display: block
+    background: $color-gray
+    margin-bottom: 4px
+    &:last-child
+      margin-bottom: 0
 
 /*главная секция с лого,навигацией и новостями, для расположения*/
 .main-section
@@ -119,18 +121,30 @@ $color-blue: #00B1D0
 /*меню навигации */
 .nav-menu
     display: flex
-    flex-direction: row
     align-items: center
-    justify-content: center
+    justify-content: start
+    position: relative
+    gap: 30px
     &__list
         display: flex
         flex-direction: row
         align-items: center
         justify-content: center
+        li
+            font-size: 18px
+            cursor: pointer
+            color: $color-gray
+            &.active
+                font-weight: bold
+                background: linear-gradient(to bottom, $color-green, #5D8177, white)
+                
+                color: black
     &__list-item
-        margin-right: 64px
+        cursor: pointer
+        margin-right: 50px
         font-size: 18px
         color: $color-gray
+        display: inline-flex
         &:last-child
             margin-right: 0px
         a
@@ -140,15 +154,52 @@ $color-blue: #00B1D0
         &.active
             display: flex
             background: linear-gradient(to bottom, $color-green 13%,#5D8177 59%, $color-white 100%)
-            width: 113px
+            padding: 0px 30px
             height: 80px
             align-items: center
+            text-align: center
             color: black
             font-weight: bold
             justify-content: center
             a
                 color: black
                 font-weight: bold
+
+.extra-menu
+  position: absolute
+  top: 100%
+  left: 0
+  width: 100%
+  background: white
+  padding: 20px
+  display: flex
+  flex-direction: row
+  gap: 60px
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1)
+  z-index: 10
+
+  .footer-section__column
+    flex: 1 1 200px
+    padding-top: 20px
+    h4 
+        color: $color-green
+        font-weight: bold
+        font-size: 24px
+        margin-bottom: 12px
+        align-items: center
+    ul
+        list-style: none
+        padding: 0
+    li
+        margin-bottom: 8px
+    a, p
+        font-size: 18px
+        color: $color-green
+        text-decoration: none
+    p
+        line-height: 20px
+    a:hover
+        text-decoration: underline
 
 /*параметры для всех титульников*/
 .title
@@ -210,6 +261,16 @@ $color-blue: #00B1D0
             border-radius: 6px
             font-weight: bold
             display: inline-block
+        &_gr
+            background-color: $color-green
+            color: white
+            text-align: center
+            padding: 8px 10px
+            text-decoration: none
+            border-radius: 6px
+            font-weight: bold
+            display: inline-block
+
 
     &_single
         margin-top: 30px
