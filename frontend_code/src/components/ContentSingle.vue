@@ -14,7 +14,7 @@
           <!-- Только для festival -->
           <div v-if="props.type === 'festival'" class="festival-pdf">
             <a
-              :href="`/api/media/pdf?folder=uploads/docs/rules/&deep=true`" 
+              :href="`/api/media/pdf?folder=uploads/docs/rules/info&deep=true`" 
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -28,7 +28,7 @@
               href="https://www.kassir.ru"
               target="_blank"
               rel="noopener noreferrer"
-              class="ticket-button"
+              class="news-card__link news-card__link_all"
             >
               Купить билет →
             </a>

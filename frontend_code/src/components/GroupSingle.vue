@@ -4,17 +4,36 @@
     <div class="page__content">
       <div class="group-single" v-if="group">
         <router-link class="news-card__link news-card__link_gr" to="/groups">Вернуться назад</router-link>
+
         <div class="group-single__content">
+          <!-- Изображение группы -->
           <img
-            :src="getImageUrl(group.preview_image)"
+            :src="getImageUrl(groupImagePath)"
             alt="Изображение группы"
             class="group-single__image"
           />
+
 
           <div class="group-single__info">
             <h1 class="group-single__title">{{ group.name }}</h1>
             <p class="group-single__description" v-html="group.full_description"></p>
 
+            <!-- Карточка преподавателя -->
+            <div class="teacher-card" v-if="teacher">
+              <img
+                :src="getImageUrl(teacher.photo)"
+                alt="Фото преподавателя"
+                class="teacher-card__photo"
+              />
+              <div class="teacher-card__info">
+                <h2 class="teacher-card__name">
+                  {{ teacher.surname }} {{ teacher.name }} {{ teacher.lastname }}
+                </h2>
+                <p class="teacher-card__phone">Телефон: {{ teacher.phone_number }}</p>
+              </div>
+            </div>
+
+            <!-- Кнопка и форма -->
             <button v-if="!showForm" class="apply-button" @click="showForm = true">
               Подать заявку
             </button>
@@ -26,37 +45,13 @@
             >
               <h2 class="apply-form__title">Заявка на вступление</h2>
 
-              <input
-                v-model="form.child_surname"
-                type="text"
-                placeholder="Фамилия ребенка *"
-              />
-              <input
-                v-model="form.child_name"
-                type="text"
-                placeholder="Имя ребенка *"
-              />
-              <input
-                v-model="form.child_lastname"
-                type="text"
-                placeholder="Отчество ребенка *"
-              />
+              <input v-model="form.child_surname" type="text" placeholder="Фамилия ребенка *" />
+              <input v-model="form.child_name" type="text" placeholder="Имя ребенка *" />
+              <input v-model="form.child_lastname" type="text" placeholder="Отчество ребенка *" />
 
-              <input
-                v-model="form.parent_surname"
-                type="text"
-                placeholder="Фамилия родителя *"
-              />
-              <input
-                v-model="form.parent_name"
-                type="text"
-                placeholder="Имя родителя *"
-              />
-              <input
-                v-model="form.parent_lastname"
-                type="text"
-                placeholder="Отчество родителя *"
-              />
+              <input v-model="form.parent_surname" type="text" placeholder="Фамилия родителя *" />
+              <input v-model="form.parent_name" type="text" placeholder="Имя родителя *" />
+              <input v-model="form.parent_lastname" type="text" placeholder="Отчество родителя *" />
               <input
                 v-model="form.parent_phone"
                 type="tel"
@@ -85,7 +80,10 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+
 const group = ref(null)
+const teacher = ref(null)
+const groupImagePath = ref('')
 const showForm = ref(false)
 const errorMessage = ref('')
 
@@ -105,10 +103,21 @@ function getImageUrl(path) {
 
 onMounted(async () => {
   try {
-    const res = await fetch('/api/groups')
+    const id = route.params.id
+    const res = await fetch(`/api/groups/${id}`)
     const data = await res.json()
-    const id = Number(route.params.id)
-    group.value = data.find(g => g.id === id)
+
+    group.value = data.group
+    teacher.value = data.teacher
+
+    // Получаем изображение группы из media
+    const media = data.media || []
+    const groupImage = media.find(
+      m => m.type === 'image' && m.related_table === 'group'
+    )
+    if (groupImage) {
+      groupImagePath.value = groupImage.file_path
+    }
   } catch (e) {
     console.error('Ошибка загрузки группы:', e)
   }
@@ -130,13 +139,8 @@ async function submitApplication() {
   } = form.value
 
   if (
-    !child_surname ||
-    !child_name ||
-    !child_lastname ||
-    !parent_surname ||
-    !parent_name ||
-    !parent_lastname ||
-    !parent_phone
+    !child_surname || !child_name || !child_lastname ||
+    !parent_surname || !parent_name || !parent_lastname || !parent_phone
   ) {
     errorMessage.value = 'Пожалуйста, заполните все поля.'
     return
@@ -190,6 +194,7 @@ function resetForm() {
 }
 </script>
 
+
 <style scoped lang="sass">
 .group-single
   padding: 40px 20px
@@ -229,7 +234,8 @@ function resetForm() {
   cursor: pointer
   transition: background-color 0.3s
 
-.apply-button,.apply-form button[type="submit"]
+.apply-button,
+.apply-form button[type="submit"]
   background-color: #1C5242
   color: white
   &:hover
@@ -248,11 +254,11 @@ function resetForm() {
   gap: 1rem
 
 .apply-form__title
-    font-size: 2rem
-    margin-top: 40px
-    margin-bottom: 10px
-    color: #1C5242
-    font-weight: bold
+  font-size: 2rem
+  margin-top: 40px
+  margin-bottom: 10px
+  color: #1C5242
+  font-weight: bold
 
 input
   padding: 0.75rem
@@ -261,4 +267,31 @@ input
 .error-message
   color: red
   font-weight: bold
+
+.teacher-card
+  display: flex
+  gap: 20px
+  background: #f7f7f7
+  padding: 20px
+  border-radius: 12px
+  margin-top: 20px
+  align-items: center
+
+  &__photo
+    width: 120px
+    height: 120px
+    object-fit: cover
+    border-radius: 12px
+
+  &__info
+    flex: 1
+
+  &__name
+    font-size: 20px
+    font-weight: bold
+    margin-bottom: 8px
+
+  &__phone
+    font-size: 16px
+    color: #555
 </style>

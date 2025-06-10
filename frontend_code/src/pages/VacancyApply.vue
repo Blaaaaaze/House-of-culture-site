@@ -143,7 +143,7 @@ button
   transition: background-color 0.3s
 
 button:hover
-  background-color: #218838
+  background-color: #1d7c60
 
 .error-message
   color: red

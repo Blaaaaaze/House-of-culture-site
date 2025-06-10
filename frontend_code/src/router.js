@@ -59,7 +59,7 @@ const routes = [
   {path: '/vacancy/:id/apply',component: VacancyApply},
   {path: '/about', component: About},
   {
-  path: '/group/:id',
+  path: '/groups/:id',
   name: 'GroupSingle',
   component: () => import('@/components/GroupSingle.vue')
 },

@@ -7,7 +7,7 @@
     />
     <h3 class="group-card__title">{{ group.name }}</h3>
     <p class="group-card__description">{{ group.short_description }}</p>
-    <router-link :to="`/group/${group.id}`" class="news-card__link">
+    <router-link :to="`/groups/${group.id}`" class="news-card__link">
       Подробнее →
     </router-link>
   </div>
