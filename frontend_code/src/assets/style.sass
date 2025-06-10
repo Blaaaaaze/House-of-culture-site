@@ -15,10 +15,17 @@ html
     flex: 1
 
 
+
 $color-green: #1C5242
 $color-white: #ffffff
 $color-gray: #666666
 $color-blue: #00B1D0
+
+.page__title
+    margin-bottom: 20px
+    margin-left: 17%
+    font-size: 32px
+    color: $color-green
 
 /*Настройка шрифтов*/
 @font-face 
@@ -609,3 +616,45 @@ $color-blue: #00B1D0
         text-transform: capitalize
         padding-bottom: 15px
         font-size: 25px
+
+
+
+
+.person-card
+    width: 500px
+    height: 400px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    &__image
+        width: 60%
+        height: 70%
+        object-fit: cover
+        display: block
+        border-radius: 5px
+    &__text
+        font-size: 16px
+        word-wrap: break-word
+        overflow-wrap: break-word
+        line-height: 24px
+        margin: 0 auto
+        display: flex
+        flex-direction: column
+        align-items: center
+    &__p
+        margin: 0 auto
+
+
+
+.person-section
+    background-color: $color-white
+    margin: 0 auto
+
+.person-grid
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 20px   
+    width: 100%
+    max-width: 1000px
+    margin: 0 auto
