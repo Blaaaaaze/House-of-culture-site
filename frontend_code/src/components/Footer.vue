@@ -21,8 +21,8 @@
             rel="noopener"
           >Билеты</a>
         </li>
-        <li><router-link to="/teams">Творческие группы</router-link></li>
-        <li><router-link to="/fests">Конкурсы и фестивали</router-link></li>
+        <li><router-link to="/groups">Творческие группы</router-link></li>
+        <li><router-link to="/festival">Конкурсы и фестивали</router-link></li>
         <li><router-link to="/contacts">Контакты</router-link></li>
       </ul>
     </div>
