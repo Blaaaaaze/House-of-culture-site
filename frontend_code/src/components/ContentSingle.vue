@@ -6,15 +6,15 @@
         <h3 class="news-card__title news-card__title_single">{{ item.name }}</h3>
         <div class="news-card__card">
           <img
-            :src="getImageUrl(item.preview_image)"
+            :src="getImageUrl(getImageMedia(item)[0].file_path)"
             alt="Изображение"
             class="news-slider__image news-slider__image_img"
           />
           <p class="news-card__text" v-html="item.full_description"></p>
           <!-- Только для festival -->
-          <div v-if="props.type === 'festival'" class="festival-pdf">
+          <div v-if="props.type === 'festival' && getPdfMedia(item)" class="festival-pdf">
             <a
-              :href="`/api/media/pdf?folder=uploads/docs/rules/&deep=true`" 
+              :href="`http://localhost:8080/${getPdfMedia(item).file_path}`" 
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -86,6 +86,20 @@ async function loadData(id) {
     const list = await res.json()
     item.value = list.find(el => el.id === Number(id))
     recentList.value = list.filter(el => el.id !== Number(id))
+
+    item.value = {
+      ...list.find(el => el.id === Number(id)), // старый формат
+      media: [], // добавим поле, чтобы не было undefined
+    }
+
+    const detailedRes = await fetch(`/api/${props.type}/${id}`) // получаем полные данные
+    const detailedItem = await detailedRes.json()
+
+    item.value = {
+      ...detailedItem.content,
+      media: detailedItem.media,
+    }
+    console.log(item.value)
   } catch (e) {
     console.error(`Ошибка загрузки ${props.type}:`, e)
   }
@@ -96,6 +110,15 @@ watchEffect(() => {
     loadData(route.params.id)
   }
 })
+
+function getPdfMedia(data) {
+  return data.media?.find(item => item.type === 'pdf')
+}
+
+function getImageMedia(data) {
+  return data.media?.filter(item => item.type === 'image')
+}
+
 </script>
 
 
