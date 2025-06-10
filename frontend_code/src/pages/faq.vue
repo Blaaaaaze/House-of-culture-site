@@ -4,7 +4,7 @@
         <div class="page__content">
             <section class="FAQ-section">
                 <div class="container">
-                    <h1 class="main-section__title title">Часто задаваемые вопросы</h1>
+                    <h1 class="FAQ-section__title title">Часто задаваемые вопросы</h1>
                     
                     <h2 class="title">Какие мероприятия проводятся в Доме культуры?</h2>
                     <p>Мы проводим концерты, спектакли, мастер-классы, выставки, фестивали, 
