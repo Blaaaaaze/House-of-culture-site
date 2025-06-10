@@ -55,7 +55,7 @@
             </router-link>
 
             <!-- Конкурсы и фестивали -->
-            <router-link to="/contests" custom v-slot="{ navigate, href, isActive }">
+            <router-link to="/festival" custom v-slot="{ navigate, href, isActive }">
               <li
                 :class="['nav-menu__list-item', { active: isActive }]"
                 :href="href"

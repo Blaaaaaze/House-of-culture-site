@@ -11,6 +11,29 @@
             class="news-slider__image news-slider__image_img"
           />
           <p class="news-card__text" v-html="item.full_description"></p>
+          <!-- Только для festival -->
+          <div v-if="props.type === 'festival'" class="festival-pdf">
+            <a
+              :href="`/api/media/pdf?content_id=${item.id}`"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              📄 Открыть документ фестиваля
+            </a>
+          </div>
+
+          <!-- Только для event -->
+          <div v-else-if="props.type === 'event'" class="event-ticket-button">
+            <a
+              href="https://www.kassir.ru"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="ticket-button"
+            >
+              Купить билет →
+            </a>
+          </div>
+
         </div>
       </div>
 
@@ -50,8 +73,12 @@ function getImageUrl(path) {
 }
 
 function getRoutePath(id) {
-  return props.type === 'news' ? `/new/${id}` : `/event/${id}`
+  if (props.type === 'news') return `/new/${id}`
+  if (props.type === 'event') return `/event/${id}`
+  if (props.type === 'festival') return `/festival/${id}`
+  return `/` // на всякий случай, если тип не распознан
 }
+
 
 async function loadData(id) {
   try {

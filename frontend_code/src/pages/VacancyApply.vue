@@ -18,7 +18,7 @@
         />
 
         <label class="resume-label">Прикрепите ваше резюме (PDF) *</label>
-        <input type="file" @change="handleFile" accept=".pdf" />
+        <input ref="fileInput" type="file" @change="handleFile" accept=".pdf" />
 
         <button type="submit">Отправить заявку</button>
       </form>
@@ -45,6 +45,7 @@ const form = ref({
 })
 
 const errorMessage = ref('')
+const fileInput = ref(null)
 
 function handleFile(event) {
   form.value.file = event.target.files[0]
@@ -82,13 +83,27 @@ async function submitForm() {
   fd.append('vacancy_id', route.params.id)
   fd.append('resume', file)
 
-  const res = await fetch('/api/vacancy/apply', {
+  const res = await fetch('/api/applicants', {
     method: 'POST',
     body: fd
   })
 
   if (res.ok) {
     alert('Заявка отправлена!')
+
+    // ✅ Очистка полей
+    form.value = {
+      name: '',
+      surname: '',
+      lastname: '',
+      phone: '',
+      file: null
+    }
+
+    // Сброс <input type="file">
+    if (fileInput.value) {
+      fileInput.value.value = ''
+    }
   } else {
     alert('Ошибка при отправке.')
   }
@@ -99,11 +114,12 @@ async function submitForm() {
 .vacancy-apply-form
   max-width: 600px
   margin: 0 auto
-  padding: 0px 10px 30px 10px
+  padding: 10px 10px 30px 10px
   &__title
+    font-size: 2rem
+    margin-bottom: 1.5rem
     color: #1C5242
     font-weight: bold
-    font-size: 2rem
 
 form
   display: flex

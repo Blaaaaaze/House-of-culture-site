@@ -42,8 +42,12 @@ function getImageUrl(path) {
 }
 
 function getRoutePath(id) {
-  return props.type === 'news' ? `/new/${id}` : `/event/${id}`
+  if (props.type === 'news') return `/new/${id}`
+  if (props.type === 'event') return `/event/${id}`
+  if (props.type === 'festival') return `/festival/${id}`
+  return `/` // на всякий случай, если тип не распознан
 }
+
 
 onMounted(async () => {
   try {
