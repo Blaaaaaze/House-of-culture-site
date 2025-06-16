@@ -20,11 +20,12 @@ type Person struct {
 	Surname     string   `json:"surname"`
 	Lastname    *string  `json:"lastname,omitempty"`
 	GroupID     *int     `json:"group_id,omitempty"`
-	PhoneNumber string   `json:"phone_number"`
+	PhoneNumber *string  `json:"phone_number"`
 	Role        RoleType `json:"role"`
 	IsActive    bool     `json:"is_active"`
 	VacancyID   *int     `json:"vacancy_id,omitempty"`
 	Photo       *string  `json:"photo,omitempty"`
+	Vacancy     *string  `json:"vacancy,omitempty"`
 }
 
 func GetTeacherByGroupIDWithPhoto(db *sql.DB, groupID int) (*Person, error) {
@@ -71,13 +72,15 @@ func GetAllContactPersons(db *sql.DB) ([]Person, error) {
 			p.lastname,
 			p.id_group,
 			p.phone_number,
-			p.role,
+			p.role::text,
 			p.is_active,
 			p.vacancy_id,
-			m.file_path
+			m.file_path,
+			v.name AS vacancy_name
 		FROM view_employee p
 		LEFT JOIN media_with_person m ON m.related_id = p.id
 		LEFT JOIN vacancy v ON p.vacancy_id = v.id
+		WHERE v.id <= 7
 		ORDER BY p.id, m.uploaded_at ASC
 	`
 
@@ -101,6 +104,7 @@ func GetAllContactPersons(db *sql.DB) ([]Person, error) {
 			&p.IsActive,
 			&p.VacancyID,
 			&p.Photo,
+			&p.Vacancy,
 		)
 		if err != nil {
 			return nil, err
@@ -108,4 +112,14 @@ func GetAllContactPersons(db *sql.DB) ([]Person, error) {
 		people = append(people, p)
 	}
 	return people, nil
+}
+
+func InsertPerson(db *sql.DB, name, surname, lastname, phone string, vacancyID int) (int, error) {
+	query := `
+		INSERT INTO person (name, surname, lastname, phone_number, role, is_active, vacancy_id)
+		VALUES ($1, $2, $3, $4, 'applicant', false, $5)
+		RETURNING id`
+	var id int
+	err := db.QueryRow(query, name, surname, lastname, phone, vacancyID).Scan(&id)
+	return id, err
 }

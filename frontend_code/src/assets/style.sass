@@ -1,0 +1,721 @@
+@import "resets.scss"
+@import "normalizez.scss"
+
+html
+    scroll-behavior: smooth
+    font-family: "Golos"
+    font-weight: regular
+
+.page
+    display: flex
+    flex-direction: column
+    min-height: 100vh
+
+.page__content
+    flex: 1
+
+
+
+$color-green: #1C5242
+$color-white: #ffffff
+$color-gray: #666666
+$color-blue: #00B1D0
+
+.page__title
+    margin-bottom: 20px
+    margin-left: 17%
+    font-size: 32px
+    color: $color-green
+
+/*Настройка шрифтов*/
+@font-face 
+    font-family: "Golos"
+    src: url(../assets/font/GolosText-Regular.ttf)
+    font-weight: regular
+    font-style: normal
+
+@font-face 
+    font-family: "Golos"
+    src: url(../assets/font/GolosText-Semibold.ttf)
+    font-weight: bold
+    font-style: normal
+
+    
+@font-face 
+    font-family: "Lato"
+    src: url(../assets/font/Lato-Regular.ttf)
+    font-weight: normal
+    font-style: normal
+
+
+/*Контейнер для ограничения по ширине */
+.container
+    position: relative
+    max-width: 1140px
+    margin: 0 auto
+
+/*бургер навигации*/
+.hamburger
+  width: 40px
+  margin-right: 24px
+  cursor: pointer
+  display: block
+  span
+    height: 5px
+    border-radius: 4px
+    width: 100%
+    display: block
+    background: $color-gray
+    margin-bottom: 4px
+    &:last-child
+      margin-bottom: 0
+
+/*главная секция с лого,навигацией и новостями, для расположения*/
+.main-section
+    position: relative
+    max-height: 800px
+    background: $color-white
+    overflow: hidden
+    &__header
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        width: 100%
+    &__log-container
+        display: flex
+        background: $color-green
+        flex-direction: row
+        justify-content: space-between
+        height: 110px
+        align-items: center
+    &__nav-container
+        display: flex
+        flex-direction: row
+        justify-content: center
+        height: 80px
+        align-items: center
+    &__container
+        margin: 0 auto
+        padding: 10px 0px 
+        height: 530px
+        
+    &__logo
+        height: 67px
+        background: $color-white
+    &__eye
+        height: 50px
+
+    &__title
+        margin-bottom: 20px
+        margin-left: 65px
+        font-size: 32px
+        color: $color-green
+    &__flex-row
+        display: flex
+        justify-content: space-between
+        gap: 130px
+
+        margin: 20px 0px 50px 0px
+        align-items: baseline
+/*меню навигации */
+.nav-menu
+    display: flex
+    align-items: center
+    justify-content: start
+    position: relative
+    gap: 30px
+    &__list
+        display: flex
+        flex-direction: row
+        align-items: center
+        justify-content: center
+        li
+            font-size: 18px
+            cursor: pointer
+            color: $color-gray
+            &.active
+                font-weight: bold
+                background: linear-gradient(to bottom, $color-green, #5D8177, white)
+                
+                color: black
+    &__list-item
+        cursor: pointer
+        margin-right: 50px
+        font-size: 18px
+        color: $color-gray
+        display: inline-flex
+        &:last-child
+            margin-right: 0px
+        a
+            text-decoration: none
+            color: $color-gray
+        /*цветной графиент для "главная"*/
+        &.active
+            display: flex
+            background: linear-gradient(to bottom, $color-green 13%,#5D8177 59%, $color-white 100%)
+            padding: 0px 30px
+            height: 80px
+            align-items: center
+            text-align: center
+            color: black
+            font-weight: bold
+            justify-content: center
+            a
+                color: black
+                font-weight: bold
+
+.extra-menu
+  position: absolute
+  top: 100%
+  left: 0
+  width: 100%
+  background: white
+  padding: 20px
+  display: flex
+  flex-direction: row
+  gap: 60px
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1)
+  z-index: 10
+
+  .footer-section__column
+    flex: 1 1 200px
+    padding-top: 20px
+    h4 
+        color: $color-green
+        font-weight: bold
+        font-size: 24px
+        margin-bottom: 12px
+        align-items: center
+    ul
+        list-style: none
+        padding: 0
+    li
+        margin-bottom: 8px
+    a, p
+        font-size: 18px
+        color: $color-green
+        text-decoration: none
+    p
+        line-height: 20px
+    a:hover
+        text-decoration: underline
+
+/*параметры для всех титульников*/
+.title
+    font-size: 36px 
+    text-align: left
+    font-weight: bold      
+
+/*левая область с новостями актуальными */
+.left-wrapper
+    width: 748px
+    display: flex
+    flex-direction: row
+    gap: 32px
+    
+    
+.news-card
+    background-color: white
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+    height: auto
+    &__card
+        padding: 15px
+    &__title
+        font-size: 20px
+        background-color: $color-green
+        color: white
+        padding: 12px
+        margin-bottom: 12px
+        &_single
+            font-size: 30px
+            text-align: center
+        &_all
+            font-size: 30px
+    &__text
+        font-size: 16px
+        word-wrap: break-word
+        overflow-wrap: break-word
+        line-height: 24px
+        margin-bottom: 40px
+        margin-top: 10px
+    &__link
+        color: $color-blue
+        font-weight: bold
+        text-decoration: none
+        &_all
+            background-color: $color-blue
+            color: white
+            text-align: center
+            padding: 12px 30px
+            text-decoration: none
+            border-radius: 6px
+            font-weight: bold
+            display: inline-block
+        &_vac
+            background-color: $color-blue
+            color: white
+            text-align: center
+            padding: 8px 10px
+            text-decoration: none
+            border-radius: 6px
+            font-weight: bold
+            display: inline-block
+        &_gr
+            background-color: $color-green
+            color: white
+            text-align: center
+            padding: 8px 10px
+            text-decoration: none
+            border-radius: 6px
+            font-weight: bold
+            display: inline-block
+
+
+    &_single
+        margin-top: 30px
+        margin-left: 50px
+        width: 800px
+    &_all
+        margin-top: 30px
+        width: 900px
+    
+
+.right-wrapper
+    width: 392px
+    display: flex
+    flex-direction: column
+    gap: 20px
+    &_single
+        margin-top: 30px
+
+.recent-box
+    background: white
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1)
+    padding: 16px 20px
+
+.recent-title
+    background-color: $color-blue
+    color: white
+    padding: 12px
+    font-size: 18px
+    margin: -16px -20px 16px -20px
+  
+
+.recent-list
+    list-style: disc
+    padding-left: 20px
+    margin: 0
+    a
+        color: inherit
+        text-decoration: none
+        display: inline-block
+    a:hover
+        color: inherit
+        text-decoration: none
+
+
+.news-button
+    background-color: $color-blue
+    color: white
+    text-align: center
+    padding: 12px
+    text-decoration: none
+    border-radius: 6px
+    font-weight: bold
+    display: inline-block
+
+.news-slider
+    &__image
+        flex-shrink: 0
+        width: 328px
+        height: 180px
+        object-fit: cover
+        display: block 
+        &_img
+            width: 428px
+            height: 280px
+
+
+
+
+
+
+
+    
+
+.event-section
+    position: relative
+    background: $color-green
+    overflow: hidden  
+    &__container
+        max-height: 650px
+        display: flex
+        flex-direction: column
+        background: $color-white
+        gap: 32px
+        padding-bottom: 30px
+
+.event-button
+    display: flex
+    width: 287px
+    background-color: $color-green
+    color: white
+    text-align: center
+    margin: 0 auto
+    padding: 12px
+    text-decoration: none
+    border-radius: 25px
+    font-weight: bold
+    font-size: 24px
+    
+
+.events-grid
+    display: flex
+    flex-wrap: wrap
+    gap: 20px
+    justify-content: center
+    margin-bottom: 50px
+
+.event-card
+    position: relative
+    width: 268px
+    height: 357px
+    overflow: hidden
+    border-radius: 6px
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15)
+    display: block
+    text-decoration: none
+    color: inherit
+    &__image
+        width: 100%
+        height: 100%
+        object-fit: cover
+        display: block
+
+    &__overlay
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+        background-color: rgba(0, 0, 0, 0.6)
+        color: white
+        padding: 10px 0px
+        font-size: 16px
+        font-weight: bold
+        text-align: center
+
+
+
+
+
+
+
+
+
+
+
+
+.gos-section
+    position: relative
+    max-height: 343px
+    background: $color-white
+    overflow: hidden
+    &__container
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        gap: 40px
+
+.gos-left
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: flex-start
+    width: 397px
+    font-family: "Lato", sans-serif
+
+.gos-text
+    font-size: 20px
+    line-height: 1.5
+    margin-bottom: 12px
+    &__sub
+        font-size: 18px
+        font-weight: bold
+        margin-bottom: 16px
+
+.gos-button
+    display: inline-block
+    padding: 12px 24px
+    border: 2px solid #0056d6
+    color: #0056d6
+    text-decoration: none
+    font-weight: bold
+    border-radius: 4px
+    font-size: 16px
+    transition: background-color 0.3s, color 0.3s
+    &:hover
+        background-color: #0056d6
+        color: white
+
+.gos-right
+    display: flex
+    width: 743px
+    text-align: right
+.gos-right img
+  max-width: 100%
+  height: auto
+  display: block
+  object-fit: contain
+
+
+
+
+
+
+
+
+.footer-section
+    position: relative
+    max-height: 300px
+    background: $color-green
+    overflow: hidden
+    &__container
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: flex-start
+        gap: 40px
+        padding-top: 10px
+        padding-bottom: 10px
+    &__column
+        flex: 1 1 200px
+        padding-top: 20px
+        h4 
+            color: white
+            font-weight: bold
+            font-size: 20px
+            margin-bottom: 12px
+            align-items: center
+        ul
+            list-style: none
+            padding: 0
+        li
+            margin-bottom: 8px
+    &__logo-column
+        flex: 2 1 300px
+    &__logo
+        max-width: 233px
+        background: $color-white
+        margin-bottom: 12px
+    a, p
+        font-size: 14px
+        color: white
+        text-decoration: none
+    p
+        line-height: 20px
+    a:hover
+        text-decoration: underline
+
+
+
+
+
+.FAQ-section
+    margin-bottom: 30px
+    &__container
+        display: block
+        gap: 20px
+        margin-left: 65px
+    &__title
+        font-size: 2rem
+        margin-bottom: 1.5rem
+        color: $color-green
+        font-weight: bold
+        margin-left: 65px
+    h2, p
+        margin-left:65px
+    h2
+        font-size: 25px
+    p
+        font-size: 20px
+        margin-bottom: 5px
+        line-height: 1.3
+        
+
+
+
+
+
+
+
+
+.new-section
+    position: relative
+    background: $color-white
+    overflow: hidden
+    &__container
+        display: flex
+        flex-direction: row
+        background: $color-white
+        gap: 32px
+        padding-bottom: 20px
+        &_all
+            flex-direction: column
+            align-items: center
+
+.links-page
+    &__container
+        max-width: 1200px
+        margin: 0 auto
+        padding: 10px 20px 40px 20px
+    &__section
+        margin-bottom: 50px
+    &__title
+        color:$color-green
+        font-size: 28px
+        font-weight: bold
+        margin-bottom: 20px
+        &_up
+            margin-bottom: 30px
+            font-size: 40px
+            text-align: center
+            
+    
+    &__grid
+        display: grid
+        grid-template-columns: repeat(4, 1fr) // 4 колонки
+        gap: 24px
+        a
+            display: block
+            width: 100%
+            height: auto
+
+            img
+                width: 100%
+                height: auto
+                border-radius: 4px
+                transition: transform 0.3s
+
+                &:hover
+                    transform: scale(1.03)
+
+        // Первый (крупный) блок займёт две строки и одну колонку
+        a:first-child
+            grid-row: span 2
+
+        // Последние два элемента размещаются вручную
+        a:nth-last-child(2)
+            grid-column: 2
+
+        a:last-child
+            grid-column: 3   
+
+
+
+
+
+
+
+.vacancy-card
+    border: 1px solid #ddd
+    padding: 1rem
+    border-radius: 8px
+    margin-bottom: 1rem
+    background: #fff
+    &__title
+        font-size: 18px
+        font-weight: bold
+    &__description
+        font-size: 16px
+        margin: 0.5rem 0
+        padding-bottom: 5px
+
+.vacancy-list
+    max-width: 960px
+    margin: 0 auto
+    padding: 10px
+    &__title
+        font-size: 2rem
+        margin-bottom: 1.5rem
+        color: $color-green
+        font-weight: bold
+
+
+
+
+
+.about-section
+    background: $color-white
+    &__container
+        margin-bottom: 1.6rem
+    &__title
+        font-size: 2rem
+        margin-bottom: 1.5rem
+        color: $color-green
+        font-weight: bold
+        margin-left: 65px
+    &__subtitle
+        font-size: 1.6rem
+        margin-bottom: 0.6rem
+        color: $color-green
+        font-weight: bold
+        margin-left: 65px
+    p, ul, a
+        font-size: 20px
+        margin-bottom: 5px
+        line-height: 1.3
+        margin-left: 65px
+        margin-bottom: 1rem
+    ul
+        list-style-type: disc
+        list-style-position: outside
+        padding-left: 20px
+    a
+        text-decoration: none
+        text-transform: capitalize
+        padding-bottom: 15px
+        font-size: 25px
+
+
+
+
+.person-card
+    width: 500px
+    height: 400px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    &__image
+        width: 60%
+        height: 70%
+        object-fit: cover
+        display: block
+        border-radius: 5px
+    &__text
+        font-size: 16px
+        word-wrap: break-word
+        overflow-wrap: break-word
+        line-height: 24px
+        margin: 0 auto
+        display: flex
+        flex-direction: column
+        align-items: center
+    &__p
+        margin: 0 auto
+
+
+
+.person-section
+    background-color: $color-white
+    margin: 0 auto
+
+.person-grid
+    display: grid
+    grid-template-columns: repeat(2, 1fr)
+    gap: 20px   
+    width: 100%
+    max-width: 1000px
+    margin: 0 auto

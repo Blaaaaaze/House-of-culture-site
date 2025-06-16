@@ -3,7 +3,6 @@ package routes
 import (
 	"culturehouse/handlers"
 	"culturehouse/middleware"
-	"fmt"
 	"net/http"
 )
 
@@ -18,10 +17,10 @@ func SetupRoutes() {
 	http.HandleFunc("/api/event/", middleware.WithCORS(handlers.GetContentItemWithMediaHandler))
 	http.HandleFunc("/api/festival/", middleware.WithCORS(handlers.GetContentItemWithMediaHandler))
 	http.HandleFunc("/api/vacancies", middleware.WithCORS(handlers.GetActiveVacanciesHandler))
-	http.HandleFunc("/api/about", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Тут о нас")
-	})
 	http.HandleFunc("/api/contacts", middleware.WithCORS(handlers.GetContactPersonsHandler))
+	http.HandleFunc("/api/media/pdf", middleware.WithCORS(handlers.GetPDFMediaHandler))
+	http.HandleFunc("/api/applicants", middleware.WithCORS(handlers.CreateApplicantHandler))
+	http.HandleFunc("/api/register-child", middleware.WithCORS(handlers.RegisterChildHandler))
 
 	http.HandleFunc("/", middleware.WithCORS(handlers.HomeHandler))
 }

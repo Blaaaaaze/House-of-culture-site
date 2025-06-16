@@ -15,3 +15,33 @@
 ```bash
 git clone https://github.com/Blaaaaaze/house-of-culture.git
 cd house-of-culture
+```
+
+## 🔧 Запуск бэкенда
+
+### Перейдите в папку
+   ```bash
+   cd backend_code
+  ```
+
+### Установите зависимости
+```bash
+   go mod tidy
+  ```
+
+### Создайте .env файл
+```bash
+   cp .env.example .env
+  ```
+
+### Заполните своими данными
+Например
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_USER=postgres
+DB_PASSWORD=secret
+DB_NAME=app_db
+```
+Dump базы данных по адресу backend_code/database/culture_house_db_dump
+
